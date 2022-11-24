@@ -1,0 +1,44 @@
+<script>
+    function guarda() {
+        console.log("Guardado")
+        let nombre = document.frm.nombre.value
+        let categoria = document.frm.categoria.value
+        let precio = document.frm.precio.value
+        let descripcion = document.frm.descripcion.value
+
+        let producto = {
+            'nombre': nombre,
+            'categoriaId': categoria,
+            'precio': precio,
+            'descripcion': descripcion
+        }
+        console.log(producto)
+        const options = {
+            method: "POST",
+            body: JSON.stringify(producto),
+            headers: {
+                "Content-type": "application/json"
+            }
+        }
+        let url = "http://localhost:9011/productos"
+        fetch(url, options)
+        then(response => console.log(response))
+    }
+
+
+
+
+    console.log("solicitando categorias")
+    fetch("http://localhost:9011/categorias")
+        .then(response => response.json())
+        .then(data => {
+            console.log(data)
+        })
+    let codigo = ""
+    data.forEach(element => {
+        codigo += '<option value =' + element.id + '>'
+        codigo += element.nombre
+        codigo += '</option>'
+
+    });
+</script>
